@@ -109,8 +109,11 @@ def fact_check(claim):
         return f"❌ Error during fact check: {e}"
 
 # Endpoint: Analyze URL and (optionally) fact-check
-@app.route("/analyze", methods=["POST"])
+@app.route("/analyze", methods=["POST", "OPTIONS"])
 def analyze():
+    if request.method == "OPTIONS":
+        return '', 200  # ✅ Handles preflight CORS check with OK
+
     data = request.json
     url = data.get("url")
     claim = data.get("claim", "")
@@ -127,6 +130,7 @@ def analyze():
         "report_file": filename,
         "fact_check": fact_result
     })
+
 
 # Endpoint: Download report
 @app.route("/download/<filename>")
