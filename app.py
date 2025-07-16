@@ -7,6 +7,9 @@ import uuid
 import os
 from flask_cors import CORS
 
+CORS(app, origins=["chrome-extension://gkmjocifdkgjbcnmcmoaajbchiigookb"])
+
+
 app = Flask(__name__)
 CORS(app)  # Allows access from the Chrome extension
 
